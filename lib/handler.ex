@@ -1,4 +1,6 @@
 defmodule Handler do
+  import Parser
+
   def handler(request) do
     request
     |> parser
@@ -6,51 +8,18 @@ defmodule Handler do
     |> response
   end
 
-  @doc "Parser function accepts at the entrance the string request and ther make transformation to a new map"
-  def parser(request) do
-    [method, path] =
-      request
-      |> String.split("\n")
-      |> List.first()
-      |> String.split(" ")
-
-    [_, params] =
-      request
-      |> String.split("\n")
-
-    parsed_params = parse_params(params)
-
-    # At the exit we have a new map {method, path, responce, status}
-    %{
-      method: String.upcase(method),
-      path: path,
-      params: parsed_params,
-      response: "",
-      status: nil
-    }
-  end
-
-  def parse_params(params) do
-    params
-    |> String.trim()
-    |> URI.decode_query()
-  end
-
   @doc "Route function compare entrance data with clauses and the generate a new map for HTTP responce and status"
-  def route(conv) do
-    route(conv, conv.method, conv.path)
-  end
 
-  def route(conv, "GET", "/visited_domains") do
+  def route(%Parser{method: "GET", path: "/visited_domains"} = conv) do
     %{conv | response: "/visited_links", status: 200}
   end
 
   # links=
-  def route(conv, "POST", "/visited_links") do
+  def route(%Parser{method: "POST", path: "/visited_links"} = conv) do
     %{conv | response: "Links was visited", status: 201}
   end
 
-  def route(conv, _, path) do
+  def route(%Parser{path: path} = conv) do
     %{conv | response: "No path: #{path} here!", status: 404}
   end
 
