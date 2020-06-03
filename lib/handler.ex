@@ -7,19 +7,30 @@ defmodule Handler do
     request
     |> parse_incom_request
     |> route
+    # TODO: emplement a controller function
     |> response
   end
 
   @doc "Route function compare entrance data with clauses and the generate a new map for HTTP responce and status"
 
   def route(%Parser{method: "GET", path: "/"} = conv) do
-    %{conv | status: 200, resp_body: "Hello!"}
+    map =
+      conv.params
+      |> String.trim()
+      |> String.replace("?", "")
+      |> URI.decode_query()
+
+    list = zrange_by_score(map["from"], map["to"])
+    # IO.puts("from #{map["from"]} to #{map["to"]}")
+    # IO.puts(list)
+    # zrange_by_score(conv.params["?from"], conv.params["to"])
+    %{conv | status: 200, resp_body: "ok"}
   end
 
   def route(%Parser{method: "POST", path: "/visited_links"} = conv) do
     map = Poison.Parser.parse!(conv.params, %{})
     links = map["links"]
-    Enum.each(links, fn link -> set(timestamp(), link) end)
+    Enum.each(links, fn link -> zadd(timestamp(), link) end)
     %{conv | status: 201, resp_body: "OK"}
   end
 
@@ -31,7 +42,6 @@ defmodule Handler do
   def response(conv) do
     """
     #{conv.version} #{conv.resp_body} #{status_reason(conv.status)}
-    #{conv.params}
     """
   end
 
