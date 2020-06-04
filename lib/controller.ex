@@ -1,8 +1,7 @@
 defmodule Controller do
   import Exred
   import Timestamp
-
-  defstruct domains: "domains:", list: ""
+  import URIparser
 
   def show(conv) do
     map =
@@ -11,8 +10,19 @@ defmodule Controller do
       |> String.replace("?", "")
       |> URI.decode_query()
 
-    list = zrange_by_score(map["from"], map["to"])
-    %{conv | list: list, resp_body: list, status: 201}
+    links = zrange_by_score(map["from"], map["to"])
+
+    domains =
+      Enum.map(links, fn x ->
+        make_domain(x)
+        |> Map.get(:authority)
+      end)
+
+    new_map = %{domains: []}
+    json = %{new_map | domains: domains}
+    json_enc = Poison.encode!(json)
+
+    %{conv | status: 200, resp_body: json_enc}
   end
 
   def creat(conv) do
