@@ -8,7 +8,8 @@
 - Redis 6.0
 
 ## Installation
-From GIT repo:
+From GIT repo.
+Open a terminal window and take the command:
 ```
    $ git clone https://github.com/arkamn/fb_task.git
    $ cd fb_task
