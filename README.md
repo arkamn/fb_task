@@ -35,9 +35,9 @@ After that you take a response like:
 
 HINT: also you can crea array of links from a file:
 
-```$ curl -X POST -H "Content-Type: application/json" -d @[<<<DIR>>>]/fb_task/tmp/links.json http://localhost:8999/visited_links```
+```$ curl -X POST -H "Content-Type: application/json" -d @[..DIR..]/fb_task/tmp/links.json http://localhost:8999/visited_links```
 
-but in this case you need to change [<<<DIR>>>] to your absolute path.
+but in this case you need to change [..DIR..] to your absolute path.
 
 3. In next step you need to take UTC time format and then convert to timestamp for preparation of HTTP GET request.
 Example:
