@@ -16,6 +16,15 @@ $ cd fb_task
 $ iex -S mix
 ```
 ## How to use
+0. In the first terminal type:
+```
+HttpServer.start(8999)
+```
+HTTP server started at port: 8999 and a message about listening on the port will appear:
+```
+Listening for connection requests on port 8999...
+```
+
 1. Open the second terminal window and call ```curl --version```. Check Elixir and Redis similarly.
 
 HINT: if your systen doesn't contain the curl util and so on please find documentation for your OS and install.
