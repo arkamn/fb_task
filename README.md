@@ -11,9 +11,9 @@
 From GIT repo.
 Open a terminal window and take the command:
 ```
-	$ git clone https://github.com/arkamn/fb_task.git
-	$ cd fb_task
-	$ iex -S mix
+$ git clone https://github.com/arkamn/fb_task.git
+$ cd fb_task
+$ iex -S mix
 ```
 ## How to use
 1. Open the second terminal window and call ```curl --version```. Check Elixir and Redis similarly.
@@ -26,14 +26,14 @@ HINT: if your systen doesn't contain the curl util and so on please find documen
 
 After that you take a response like:
 ```
-	HTTP/1.1 201 Created
-	Content-Type: application/json
-	Content-Length: 50
+HTTP/1.1 201 Created
+Content-Type: application/json
+Content-Length: 50
 
-	Links created and saved in DB from 07:12:36.036951
+Links created and saved in DB from 07:12:36.036951
 ```
 
-HINT: also you can crea array of links from a file:
+HINT: also you can create array of links from a file:
 
 ```$ curl -X POST -H "Content-Type: application/json" -d @[..DIR..]/fb_task/tmp/links.json http://localhost:8999/visited_links```
 
@@ -51,11 +51,11 @@ Put next command to termaial:
 And you shell be see the response like:
 
 ```
-	HTTP/1.1 200 OK
-	Content-Type: application/json
-	Content-Length: 61
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 61
 
-	{"domains":["ya.ru","ya.ru","funbox.ru","stackoverflow.com"]}
+{"domains":["ya.ru","ya.ru","funbox.ru","stackoverflow.com"]}
 ```
 
 HINT: if you see {"domains":[]} in response message please shall see instruction at step 3 and enter timestamp-range correctly.

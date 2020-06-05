@@ -23,6 +23,8 @@ defmodule Controller do
     json_enc = Poison.encode!(json)
 
     %{conv | status: 200, resp_body: json_enc}
+
+    # SOLUTION: https://stackoverflow.com/questions/62195250/put-the-data-in-the-list-with-elixir-pipeine-and-enum/62195567#62195567
   end
 
   def creat(conv) do
@@ -30,8 +32,9 @@ defmodule Controller do
       conv.params
       |> Poison.Parser.parse!(%{})
 
+    start_time = Time.utc_now()
     Enum.each(map["links"], fn link -> zadd(timestamp(), link) end)
 
-    %{conv | status: 201, resp_body: "OK"}
+    %{conv | status: 201, resp_body: "Links created and saved in DB from #{start_time}"}
   end
 end

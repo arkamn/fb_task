@@ -1,61 +1,40 @@
 defmodule Handler do
   import Parser
-  import Exred
-  import Timestamp
 
   def handler(request) do
     request
     |> parse_incom_request
-    |> route
-    # TODO: emplement a controller function
-    |> response
+    |> route_to_controller
+    |> send_response
+
+    # TODO: Configure the socket response
   end
 
-  @doc "Route function compare entrance data with clauses and the generate a new map for HTTP responce and status"
+  @doc "Route function compare entrance request data with clauses and then generate a new map for HTTP responce body and status"
 
-  def route(%Parser{method: "GET", path: "/"} = conv) do
-    map =
-      conv.params
-      |> String.trim()
-      |> String.replace("?", "")
-      |> URI.decode_query()
-
-    list = zrange_by_score(map["from"], map["to"])
-    # IO.puts("from #{map["from"]} to #{map["to"]}")
-    # IO.puts(list)
-    # zrange_by_score(conv.params["?from"], conv.params["to"])
-    %{conv | status: 200, resp_body: "ok"}
+  def route_to_controller(%Parser{method: "GET", path: "/"} = conv) do
+    %{conv | status: 200, resp_body: "Hello!\n"}
   end
 
-  def route(%Parser{method: "POST", path: "/visited_links"} = conv) do
-    map = Poison.Parser.parse!(conv.params, %{})
-    links = map["links"]
-    Enum.each(links, fn link -> zadd(timestamp(), link) end)
-    %{conv | status: 201, resp_body: "OK"}
+  def route_to_controller(%Parser{method: "GET", path: "/visited_domains"} = conv) do
+    Controller.show(conv)
   end
 
-  def route(%Parser{method: _, path: path} = conv) do
-    %{conv | status: 404, resp_body: "No path #{path} here!"}
+  def route_to_controller(%Parser{method: "POST", path: "/visited_links"} = conv) do
+    Controller.creat(conv)
   end
 
-  @doc "Prepare to a response"
-  def response(conv) do
+  def route_to_controller(%Parser{method: _, path: path} = conv) do
+    %{conv | status: 404, resp_body: "No path #{path} here!\n"}
+  end
+
+  def send_response(%Parser{} = conv) do
     """
-    #{conv.version} #{conv.resp_body} #{status_reason(conv.status)}
-    """
-  end
+    \n\nHTTP/1.1 #{Conv.full_status(conv)}
+    \rContent-Type: application/json
+    \rContent-Length: #{String.length(conv.resp_body)}
 
-  defp status_reason(code) do
-    %{
-      200 => "OK",
-      201 => "Created",
-      404 => "Not Found"
-    }[code]
+    \r#{conv.resp_body}\n
+    """
   end
 end
-
-# GET /path
-# params
-
-# POST /path
-# params

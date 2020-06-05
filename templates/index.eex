@@ -1,0 +1,7 @@
+<h1>All visited links</h1>
+
+<ul>
+	<%= for list <- links do %>
+		<li> <%=links.id %> - <%=links.link %></li>
+	<% end %>
+</ul>

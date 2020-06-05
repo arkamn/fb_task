@@ -1,20 +1,18 @@
 defmodule Parser do
-  defstruct method: "", path: "", version: "", params: %{}, resp_body: "", status: nil
+  defstruct method: "",
+            path: "",
+            version: "",
+            params: %{},
+            resp_body: "",
+            domains: [],
+            status: nil
 
   def parse_incom_request(request) do
-    # [top, par_string] = String.split(request, "\n\n")
-    # [req_line | head_lines] = String.split(top, "\n")
     [top, par_string] = String.split(request, "\r\n\r\n")
     [req_line | _head_lines] = String.split(top, "\r\n")
     [method, path, version] = String.split(req_line, " ")
     params = par_string
     %Parser{method: method, path: path, version: version, params: params}
-  end
-
-  def parse_params(%Parser{method: "GET"} = conversion) do
-    trim = String.trim(conversion.params)
-    params = URI.decode_query(trim)
-    %{conversion | params: params}
   end
 end
 
