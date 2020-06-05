@@ -27,7 +27,7 @@ Listening for connection requests on port 8999...
 
 1. Open the second terminal window and call ```curl --version```. Check Elixir and Redis similarly.
 
-HINT: if your systen doesn't contain the curl util and so on please find documentation for your OS and install.
+HINT: if your systen doesn't contain the curl util and so on please find documentation for your OS and install nessesary utils.
 
 2. Let's creat array of links throught HTTP POST request:
 
@@ -42,7 +42,7 @@ Content-Length: 50
 Links created and saved in DB from 07:12:36.036951
 ```
 
-HINT: also you can create array of links from a file:
+HINT: also you can create array of links from the file:
 
 ```$ curl -X POST -H "Content-Type: application/json" -d @[..DIR..]/fb_task/tmp/links.json http://localhost:8999/visited_links```
 
