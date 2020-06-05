@@ -60,4 +60,4 @@ And you shell be see the response like:
 
 HINT: if you see {"domains":[]} in response message please shall see instruction at step 3 and enter timestamp-range correctly.
 
-Thans's for reading!
+Thank's for reading!
