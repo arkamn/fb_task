@@ -1,4 +1,4 @@
-# FUNBOX 
+# FUNBOX qualification task
 
 **TODO: Add documentation and tests**
 
@@ -33,7 +33,9 @@ After that you take a response like:
 ```
 
 HINT: also you can crea array of links from a file:
+
 ```$ curl -X POST -H "Content-Type: application/json" -d @[<<<DIR>>>]/fb_task/tmp/links.json http://localhost:8999/visited_links```
+
 but in this case you need to change [<<<DIR>>>] to your absolute path.
 
 3. In next step you need to take UTC time format and then convert to timestamp for preparation of HTTP GET request.
@@ -46,12 +48,13 @@ Put next command to termaial:
 ```$ curl -XGET -H 'Content-Type: application/json' http://localhost:8999/visited_domains -d '?from=71236036957&to=71236036957'```
 
 And you shell be see the response like:
-```
-HTTP/1.1 200 OK
-Content-Type: application/json
-Content-Length: 61
 
-{"domains":["ya.ru","ya.ru","funbox.ru","stackoverflow.com"]}
+```
+	HTTP/1.1 200 OK
+	Content-Type: application/json
+	Content-Length: 61
+
+	{"domains":["ya.ru","ya.ru","funbox.ru","stackoverflow.com"]}
 ```
 
 HINT: if you see {"domains":[]} in response message please shall see instruction at step 3 and enter timestamp-range correctly.
