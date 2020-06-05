@@ -11,9 +11,9 @@
 From GIT repo.
 Open a terminal window and take the command:
 ```
-   $ git clone https://github.com/arkamn/fb_task.git
-   $ cd fb_task
-   $ iex -S mix
+	$ git clone https://github.com/arkamn/fb_task.git
+	$ cd fb_task
+	$ iex -S mix
 ```
 ## How to use
 1. Open the second terminal window and call ```curl --version```. Check Elixir and Redis similarly.
