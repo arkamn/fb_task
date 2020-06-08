@@ -53,9 +53,9 @@ but in this case you need to change [..DIR..] to your absolute path.
 
 3. In next step you need to take UTC time format from previous response message and then convert to timestamp for preparation of the HTTP GET request.
 Example:
-UTC format of time: 07:12:36.036951
-GET request format: 71236036957
-But also you need end timestamp of request for generate range-like HTTP GET request for range database response. Simple way of this just add a few of seconds to request temestamp - 71238036957 (38 seconds)
+- UTC format of time: 07:12:36.036951
+- GET request format: 71236036957
+- But also you need end timestamp of request for generate range-like HTTP GET request for range database response. Simple way of this just add a few of seconds to request temestamp - 71238036957 (38 seconds)
 Put next command to termaial:
 
 ```$ curl -XGET -H 'Content-Type: application/json' http://localhost:8999/visited_domains -d '?from=71236036957&to=71236036957'```
