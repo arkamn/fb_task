@@ -1,20 +1,12 @@
 defmodule Handler do
-  import Parser
-
   def handler(request) do
     request
-    |> parse_incom_request
+    |> Parser.parse_incom_request()
     |> route_to_controller
-    |> send_response
-
-    # TODO: Configure the socket response
+    |> prepare_response
   end
 
   @doc "Route function compare entrance request data with clauses and then generate a new map for HTTP responce body and status"
-
-  def route_to_controller(%Parser{method: "GET", path: "/"} = conv) do
-    %{conv | status: 200, resp_body: "Hello!\n"}
-  end
 
   def route_to_controller(%Parser{method: "GET", path: "/visited_domains"} = conv) do
     Controller.show(conv)
@@ -24,11 +16,11 @@ defmodule Handler do
     Controller.creat(conv)
   end
 
-  def route_to_controller(%Parser{method: _, path: path} = conv) do
-    %{conv | status: 404, resp_body: "No path #{path} here!\n"}
+  def route_to_controller(%Parser{method: _method, path: _path} = conv) do
+    Controller.error(conv)
   end
 
-  def send_response(%Parser{} = conv) do
+  def prepare_response(%Parser{} = conv) do
     """
     \n\nHTTP/1.1 #{Conv.full_status(conv)}
     \rContent-Type: application/json
