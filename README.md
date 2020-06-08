@@ -9,25 +9,28 @@
 
 ## Installation
 From GIT repo.
-Open a terminal window and take the command:
+Open a terminal window and take the next commands:
 ```
 $ git clone https://github.com/arkamn/fb_task.git
 $ cd fb_task
-$ iex -S mix
+$ mix test
 ```
+If errors occur during the tests, check the requirements.
+
 ## How to use
-0. In the first terminal type:
+0. In the first terminal window let's type:
 ```
-HttpServer.start(8999)
+$ iex -S mix
+> HttpServer.start(8999)
 ```
-HTTP server started at port: 8999 and a message about listening on the port will appear:
+HTTP server will be started at port: 8999 and a message about listening on the port will appear:
 ```
 Listening for connection requests on port 8999...
 ```
 
-1. Open the second terminal window and call ```curl --version```. Check Elixir and Redis similarly.
+1. Open the second terminal window and call ```curl --version```. Check Elixir and Redis software versions similarly.
 
-HINT: if your systen doesn't contain the curl util and so on please find documentation for your OS and install nessesary utils.
+HINT: if your system doesn't contain the curl utility and so on please find documentation for your OS and install nessesary utils.
 
 2. Let's creat array of links throught HTTP POST request:
 
@@ -48,7 +51,7 @@ HINT: also you can create array of links from the file:
 
 but in this case you need to change [..DIR..] to your absolute path.
 
-3. In next step you need to take UTC time format and then convert to timestamp for preparation of HTTP GET request.
+3. In next step you need to take UTC time format from previous response message and then convert to timestamp for preparation of the HTTP GET request.
 Example:
 UTC format of time: 07:12:36.036951
 GET request format: 71236036957
