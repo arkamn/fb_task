@@ -1,4 +1,9 @@
 defmodule Timestamp do
+  @doc """
+  Function returns a timestamp
+  """
+  @spec timestamp() :: integer()
+
   def timestamp() do
     Time.utc_now()
     |> Time.to_iso8601()

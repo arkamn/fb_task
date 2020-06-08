@@ -6,7 +6,8 @@ defmodule Handler do
     |> prepare_response
   end
 
-  @doc "Route function compare entrance request data with clauses and then generate a new map for HTTP responce body and status"
+  @doc "Route function compare entrance request data with clauses and then 
+  call the Controller's module functions"
 
   def route_to_controller(%Parser{method: "GET", path: "/visited_domains"} = conv) do
     Controller.show(conv)
@@ -20,6 +21,9 @@ defmodule Handler do
     Controller.error(conv)
   end
 
+  @doc """
+  Template of HTTP response
+  """
   def prepare_response(%Parser{} = conv) do
     """
     \n\nHTTP/1.1 #{Conv.full_status(conv)}

@@ -1,4 +1,14 @@
 defmodule HttpServer do
+  @moduledoc """
+  HTTP Server. Copyright 2017 pragmaticstudio.com
+  Developing with Elixir and OTP 
+  """
+
+  @doc """
+  Starts the HTTP Server
+  Example:
+  HttpServer.start(8999)
+  """
   def start(port) when is_integer(port) and port > 1023 do
     {:ok, listen_socket} =
       :gen_tcp.listen(port, [:binary, packet: :raw, active: false, reuseaddr: true])
