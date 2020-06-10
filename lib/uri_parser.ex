@@ -1,9 +1,10 @@
 defmodule URIparser do
   @doc """
   The function retrieves the domain name from the link passed to it
-  """
-  @spec make_domain(String.t()) :: String.t()
 
+  ## Example
+      iex> domain = URIparser.make_domain("http://yandex.ru")
+ """
   def make_domain(uri) do
     case URI.parse(uri) do
       %URI{authority: nil} -> URI.parse("http://#{uri}")

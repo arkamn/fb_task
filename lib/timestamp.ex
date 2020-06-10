@@ -1,6 +1,9 @@
 defmodule Timestamp do
   @doc """
   Function returns a timestamp
+
+  ## Example
+      iex> timestamp = Timestamp.timestamp()
   """
   @spec timestamp() :: integer()
 

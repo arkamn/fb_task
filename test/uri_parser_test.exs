@@ -1,5 +1,6 @@
 defmodule(URIparserTest) do
   use ExUnit.Case
+  doctest URIparser
   import URIparser, only: [make_domain: 1]
 
   test "Make a domain name from URI" do
