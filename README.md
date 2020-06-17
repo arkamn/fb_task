@@ -1,7 +1,5 @@
 # FUNBOX qualification task
 
-**TODO: Add documentation and tests**
-
 ## Requirements
 - curl 7 or newer
 - Elixir v1.10
